@@ -4,6 +4,9 @@
  */
 package tareaestructuras.view;
 
+import tareaestructuras.controller.TreeController;
+import tareaestructuras.model.Node;
+
 /**
  *
  * @author sebastian
@@ -12,11 +15,15 @@ public class ArbolGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ArbolGUI.class.getName());
 
+    
+    TreeController controller;
+
     /**
      * Creates new form ArbolGUI
      */
     public ArbolGUI() {
         initComponents();
+        this.controller = new TreeController(txad);
     }
 
     /**
@@ -57,20 +64,13 @@ public class ArbolGUI extends javax.swing.JFrame {
         txtSueldoModificar = new javax.swing.JTextField();
         btnModificar = new javax.swing.JButton();
         btnConsultarModificar = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        txtCodigoEliminar = new javax.swing.JTextField();
-        txtNombreEliminar = new javax.swing.JTextField();
-        txtSueldoEliminar = new javax.swing.JTextField();
-        btnEliminar = new javax.swing.JButton();
-        btnConsultarEliminar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnEnOrden = new javax.swing.JButton();
+        btnPreOrden = new javax.swing.JButton();
+        btnPostOrden = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        btnListar = new javax.swing.JButton();
+        txad = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,7 +116,7 @@ public class ArbolGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(jLabel9)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +136,7 @@ public class ArbolGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtSueldoIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ingresos", jPanel1);
@@ -183,7 +183,7 @@ public class ArbolGUI extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(jLabel13)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +203,7 @@ public class ArbolGUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(txtSueldoConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultar", jPanel2);
@@ -225,9 +225,11 @@ public class ArbolGUI extends javax.swing.JFrame {
         btnModificar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(0, 204, 0));
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(this::btnModificarActionPerformed);
 
         btnConsultarModificar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         btnConsultarModificar.setText("Consultar");
+        btnConsultarModificar.addActionListener(this::btnConsultarModificarActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -255,7 +257,7 @@ public class ArbolGUI extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(jLabel17)))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,92 +278,34 @@ public class ArbolGUI extends javax.swing.JFrame {
                     .addComponent(jLabel20)
                     .addComponent(txtSueldoModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Modificar", jPanel3);
-
-        jPanel4.setBackground(new java.awt.Color(0, 51, 51));
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        jLabel21.setText("Eliminar Datos");
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jLabel22.setText("Codigo:");
-
-        jLabel23.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jLabel23.setText("Nombre:");
-
-        jLabel24.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jLabel24.setText("Sueldo:");
-
-        btnEliminar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(204, 0, 0));
-        btnEliminar.setText("Eliminar");
-
-        btnConsultarEliminar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        btnConsultarEliminar.setText("Consultar");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jLabel21))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel24))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtSueldoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtCodigoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnConsultarEliminar))
-                            .addComponent(txtNombreEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(104, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel21)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(txtCodigoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConsultarEliminar))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(txtNombreEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txtSueldoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar))
-                .addContainerGap(64, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Eliminar", jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(102, 0, 51));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setText("Listado de Datos");
 
-        btnListar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        btnListar.setForeground(new java.awt.Color(0, 0, 255));
-        btnListar.setText("Listar Empleados");
+        btnEnOrden.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        btnEnOrden.setForeground(new java.awt.Color(0, 0, 255));
+        btnEnOrden.setText("Listar en orden");
+        btnEnOrden.addActionListener(this::btnEnOrdenActionPerformed);
+
+        btnPreOrden.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        btnPreOrden.setForeground(new java.awt.Color(0, 0, 255));
+        btnPreOrden.setText("Listar en pre-orden");
+        btnPreOrden.addActionListener(this::btnPreOrdenActionPerformed);
+
+        btnPostOrden.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        btnPostOrden.setForeground(new java.awt.Color(0, 0, 255));
+        btnPostOrden.setText("Listar en post-orden");
+        btnPostOrden.addActionListener(this::btnPostOrdenActionPerformed);
+
+        txad.setColumns(20);
+        txad.setRows(5);
+        jScrollPane1.setViewportView(txad);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -371,26 +315,35 @@ public class ArbolGUI extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnListar)
-                .addGap(171, 171, 171))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnEnOrden)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                                .addComponent(btnPreOrden)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPostOrden)))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnListar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEnOrden)
+                    .addComponent(btnPreOrden)
+                    .addComponent(btnPostOrden))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Listar", jPanel5);
@@ -415,13 +368,64 @@ public class ArbolGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        int id = Integer.parseInt(txtCodigoConsultar.getText());
+        Node node = this.controller.search(this.controller.getRoot(), id);
+        if (node != null)
+        {
+            txtNombreConsultar.setText(node.getEmp().getName() + "");
+            txtSueldoConsultar.setText(node.getEmp().getSalary() + "");
+        }else
+        {
+            txtNombreConsultar.setText("El empleado no se encontro.");
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
     private void btnGuardarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarIngresosActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(txtCodigoIngresos.getText());
+        String name = txtNombreIngresos.getText();
+        float salary = Float.parseFloat(txtSueldoIngresos.getText());
+        this.controller.insert(id, name, salary);
+        txtCodigoIngresos.setText("");
+        txtNombreIngresos.setText("");
+        txtSueldoIngresos.setText("");
+        txtCodigoIngresos.requestFocus();
     }//GEN-LAST:event_btnGuardarIngresosActionPerformed
 
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConsultarActionPerformed
+    private void btnEnOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnOrdenActionPerformed
+        txad.setText("");
+        this.controller.inOrder(this.controller.getRoot());
+    }//GEN-LAST:event_btnEnOrdenActionPerformed
+
+    private void btnPreOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreOrdenActionPerformed
+        txad.setText("");
+        this.controller.preOrder(this.controller.getRoot());
+    }//GEN-LAST:event_btnPreOrdenActionPerformed
+
+    private void btnPostOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostOrdenActionPerformed
+        txad.setText("");
+        this.controller.postOrder(this.controller.getRoot());
+    }//GEN-LAST:event_btnPostOrdenActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int id = Integer.parseInt(txtCodigoModificar.getText());
+        String name = txtNombreModificar.getText();
+        float salary = Float.parseFloat(txtSueldoModificar.getText());
+        this.controller.edit(id, name, salary);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnConsultarModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarModificarActionPerformed
+        int id = Integer.parseInt(txtCodigoModificar.getText());
+        Node node = this.controller.search(this.controller.getRoot(), id);
+        if (node != null)
+        {
+            txtNombreModificar.setText(node.getEmp().getName() + "");
+            txtSueldoModificar.setText(node.getEmp().getSalary() + "");
+        }else
+        {
+            txtNombreModificar.setText("El empleado no se encontro.");
+        }
+    }//GEN-LAST:event_btnConsultarModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -450,12 +454,12 @@ public class ArbolGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton btnConsultarEliminar;
     private javax.swing.JButton btnConsultarModificar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEnOrden;
     private javax.swing.JButton btnGuardarIngresos;
-    private javax.swing.JButton btnListar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnPostOrden;
+    private javax.swing.JButton btnPreOrden;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -468,28 +472,21 @@ public class ArbolGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea txad;
     private javax.swing.JTextField txtCodigoConsultar;
-    private javax.swing.JTextField txtCodigoEliminar;
     private javax.swing.JTextField txtCodigoIngresos;
     private javax.swing.JTextField txtCodigoModificar;
     private javax.swing.JTextField txtNombreConsultar;
-    private javax.swing.JTextField txtNombreEliminar;
     private javax.swing.JTextField txtNombreIngresos;
     private javax.swing.JTextField txtNombreModificar;
     private javax.swing.JTextField txtSueldoConsultar;
-    private javax.swing.JTextField txtSueldoEliminar;
     private javax.swing.JTextField txtSueldoIngresos;
     private javax.swing.JTextField txtSueldoModificar;
     // End of variables declaration//GEN-END:variables
